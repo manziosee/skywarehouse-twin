@@ -23,12 +23,12 @@ export function SystemMap() {
     <svg viewBox="0 0 100 100" className="w-full h-full">
       <defs>
         <linearGradient id="link" x1="0" x2="1">
-          <stop offset="0%" stopColor="#7dd3fc" stopOpacity="0.2" />
+          <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.2" />
           <stop offset="50%" stopColor="#0ea5e9" stopOpacity="1" />
-          <stop offset="100%" stopColor="#7dd3fc" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.2" />
         </linearGradient>
         <filter id="glow">
-          <feGaussianBlur stdDeviation="0.8" result="b" />
+          <feGaussianBlur stdDeviation="1.5" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
@@ -40,9 +40,9 @@ export function SystemMap() {
         const B = map[b];
         return (
           <g key={i}>
-            <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="#bae6fd" strokeWidth="0.4" />
+            <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="#0ea5e9" strokeOpacity="0.4" strokeWidth="0.6" />
             <motion.circle
-              r="0.8"
+              r="1"
               fill="#0ea5e9"
               filter="url(#glow)"
               initial={{ cx: A.x, cy: A.y }}
@@ -57,21 +57,22 @@ export function SystemMap() {
           <motion.circle
             cx={n.x}
             cy={n.y}
-            r="2.8"
-            fill="white"
-            stroke="#0ea5e9"
-            strokeWidth="0.6"
+            r="3"
+            fill="#0ea5e9"
+            stroke="white"
+            strokeWidth="1"
             filter="url(#glow)"
-            animate={{ r: [2.8, 3.4, 2.8] }}
+            animate={{ r: [3, 3.8, 3] }}
             transition={{ duration: 2.5, repeat: Infinity }}
           />
           <text
             x={n.x}
-            y={n.y - 4}
-            fontSize="2.6"
+            y={n.y - 5}
+            fontSize="3.5"
             textAnchor="middle"
-            fill="#0c4a6e"
-            fontWeight="600"
+            fill="white"
+            fontWeight="900"
+            className="uppercase tracking-widest"
           >
             {n.label}
           </text>

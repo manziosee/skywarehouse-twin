@@ -1,49 +1,95 @@
-# AERION — Warehouse Activity Twin
+# <p align="center">✦ AERION ✦</p>
+<p align="center"><b>Next-Generation Warehouse Command Center</b></p>
 
-A futuristic, real‑time digital twin for warehouse operations. AERION fuses a live 3D model of the floor with predictive overlays, AI copilots, voice control, and temporal replay — letting operators see, simulate, and steer activity across every zone.
+<p align="center">
+  <img src="src/assets/aerion-logo.png" width="120" alt="AERION Logo" />
+</p>
 
-![AERION logo](src/assets/aerion-logo.png)
+<p align="center">
+  <img src="https://img.shields.io/badge/System-AERION_Twin_Engine-0ea5e9?style=for-the-badge&logo=sky" alt="System" />
+  <img src="https://img.shields.io/badge/Status-Nominal-white?style=for-the-badge&logo=target" alt="Status" />
+  <img src="https://img.shields.io/badge/Security-Mesh_Active-0ea5e9?style=for-the-badge&logo=shield" alt="Security" />
+</p>
 
-## ✦ The Experience
+---
 
-- **Live 3D twin** — orbiting WebGL view of racks, AGVs, and dock activity
-- **Particle flows** — every order, scan and AGV is a glowing particle between services
-- **Interactive system map** — zoomable graph from Intake → Sort → Pick → Pack → Ship
-- **Predictive heatmap** — bottlenecks visualised before they happen
-- **AI copilot** — streaming, spatial‑aware assistant with voice input
-- **Drag‑to‑simulate** futures and **temporal replay** ("show me the floor 2 hours ago")
-- **Real‑time metrics** — throughput, dwell time, accuracy, predicted vs actual
+### 🌑 OVERVIEW
+**AERION** is a high-performance, real-time digital twin designed for modern warehouse intelligence. It fuses an immersive **3D Spatial Engine** with predictive analytics, AI-driven insights, and temporal replay to provide operators with a comprehensive **Operational Command Center**.
 
-## ✦ Stack
+---
 
-Frontend‑only futurism, built with:
+### 🛰️ INTELLIGENCE MODULES
 
-| Capability | Tech |
-|---|---|
-| Framework | **React 19 + TypeScript** (TanStack Start, SSR‑ready) |
-| 3D / WebGL | **Three.js** |
-| Motion | **Framer Motion** |
-| Data viz | **D3.js** + **Recharts** |
-| Live updates | Simulated **WebSocket** stream (swap for real WS) |
-| AI UI | Streaming token UI · voice input · prompt chips |
-| Spatial nav | Canvas + SVG, keyboard & pointer |
-| Styling | Tailwind v4 with semantic sky‑blue / white design system |
+#### 🧊 SPATIAL ACTIVITY TWIN
+A high-fidelity **Three.js** engine rendering the warehouse floor in 1:1 scale.
+*   **LIVE TELEMETRY** — Real-time AGV tracking and fleet status.
+*   **BOTTLENECK HEATMAPS** — D3-powered visualization of floor congestion.
+*   **HIGH-CONTRAST HUD** — Non-scrolling interface for maximum data visibility.
 
-> The brief mentioned Next.js — this template ships with TanStack Start (also React + TS + SSR + file‑based routing). All listed frontend capabilities are implemented; the platform layer is interchangeable.
+#### 🛡️ SHIELD OPS (SAFETY)
+Advanced monitoring for floor compliance and hazard distribution.
+*   **LIDAR FUSION** — AI-driven pedestrian and obstruction detection.
+*   **COMPLIANCE LOGS** — Real-time safety scoring and accident-free tracking.
+*   **SITE EVACUATION** — Instant, site-wide emergency protocol execution.
 
-## ✦ Run it
+#### 📦 NEURAL LOGISTICS
+Intelligent SKU management and multi-modal vessel telemetry.
+*   **PREDICTIVE REPLENISHMENT** — Stock-out forecasting before it occurs.
+*   **DOCK COMMAND** — Automated bay assignment for Truck, Ship, and Air.
+*   **INFERENCE MESH** — Real-time throughput (Actual vs. Predicted) analysis.
 
+#### 🌑 ULTIMATE COMMAND SUITE
+The dashboard is equipped with four high-frequency telemetry modules:
+*   **GLOBAL EVENT TICKER** — Site-wide marquee streaming real-time logistics alerts.
+*   **ENVIRONMENTAL HUD** — Live tracking of weather impact on dock efficiency.
+*   **NEURAL WAVEFORM** — Animated voice UI visualizer for AERION AI interaction.
+*   **CONNECTIVITY MESH** — Real-time IT health and AGV sync monitoring.
+
+---
+
+### 🛠️ CORE STACK
+
+<p align="left">
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/typescript-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/three.js-%23000000.svg?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js" />
+  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/d3-%23F9A03C.svg?style=for-the-badge&logo=d3.js&logoColor=white" alt="D3.js" />
+  <img src="https://img.shields.io/badge/framer-%23000000.svg?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
+</p>
+
+*   **ENGINE** — React 19 + TypeScript (TanStack Start)
+*   **VISUALS** — Three.js / WebGL / Framer Motion 12
+*   **ANALYTICS** — D3.js / Recharts High-Precision
+*   **STYLING** — Tailwind CSS (Sky Blue / Pure Black)
+
+---
+
+### 🌑 DESIGN PHILOSOPHY
+AERION utilizes a **High-Contrast / Zero-Gray** design system:
+*   **BACKGROUND** — Pure Black (`#000000`) for depth and focus.
+*   **ACCENTS** — Sky Blue (`#0ea5e9`) for active telemetry.
+*   **TYPOGRAPHY** — Pure White Bold for maximum data readability.
+
+---
+
+### 🚀 DEPLOYMENT
+
+#### 🌍 Netlify (Recommended)
+This project is pre-configured for Netlify deployment using `netlify.toml`.
+1.  Connect your repository to Netlify.
+2.  Build Command: `npm run build`
+3.  Publish Directory: `dist/client`
+4.  Environment: Node.js 20+
+
+#### 💻 Local Development
 ```bash
-bun install
-bun run dev
+# Install dependencies
+npm install
+
+# Launch Command Center
+npm run dev
 ```
 
-Open http://localhost:5173.
-
-## ✦ Logo
-
-The mark is an isometric cube of light beams orbited by a thin ring — a warehouse made of data. Sky blue (`#38bdf8`) on white. See `src/assets/aerion-logo.png`.
-
-## ✦ Design system
-
-All colour, motion and depth tokens live in `src/styles.css` (`oklch`). Never hardcode colours in components — use `bg-primary`, `text-foreground`, `glass`, `glow`, etc.
+---
+<p align="center"><b>AERION Twin Engine v1.0.5</b><br/>Optimized for Stockholm Site-7 Operational Mesh</p>

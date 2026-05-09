@@ -23,36 +23,40 @@ export function WarehouseTwin3D({ replayProgress = 1, activeZone }: Props) {
     const height = mount.clientHeight;
 
     const scene = new THREE.Scene();
-    scene.background = null;
+    scene.background = new THREE.Color(0x000000);
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 200);
     camera.position.set(18, 16, 22);
     camera.lookAt(0, 2, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(width, height);
     mount.appendChild(renderer.domElement);
 
     // Lights
-    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-    const dir = new THREE.DirectionalLight(0xffffff, 0.9);
-    dir.position.set(10, 20, 10);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+    const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+    dir.position.set(15, 30, 15);
     scene.add(dir);
-    const skyLight = new THREE.PointLight(0x7dd3fc, 1.5, 60);
-    skyLight.position.set(0, 12, 0);
+    const skyLight = new THREE.PointLight(0x0ea5e9, 3.5, 100);
+    skyLight.position.set(0, 20, 0);
     scene.add(skyLight);
 
     // Floor grid
-    const grid = new THREE.GridHelper(40, 40, 0x7dd3fc, 0xbae6fd);
+    const grid = new THREE.GridHelper(60, 60, 0x0ea5e9, 0x0ea5e9);
     (grid.material as THREE.Material).transparent = true;
-    (grid.material as THREE.Material).opacity = 0.4;
+    (grid.material as THREE.Material).opacity = 0.5;
     scene.add(grid);
 
-    // Floor plate
+    // Floor plate - PURE BLACK
     const floor = new THREE.Mesh(
-      new THREE.PlaneGeometry(40, 40),
-      new THREE.MeshStandardMaterial({ color: 0xf0f9ff, transparent: true, opacity: 0.6 }),
+      new THREE.PlaneGeometry(100, 100),
+      new THREE.MeshStandardMaterial({ 
+        color: 0x000000, 
+        roughness: 0.05,
+        metalness: 0.8
+      }),
     );
     floor.rotation.x = -Math.PI / 2;
     floor.position.y = -0.01;
@@ -136,12 +140,30 @@ export function WarehouseTwin3D({ replayProgress = 1, activeZone }: Props) {
       raf = requestAnimationFrame(animate);
       frame++;
 
-      // orbit camera slowly
+      // camera movement based on zone
+      const active = stateRef.current.zone;
+      const targetPos = new THREE.Vector3(0, 2.5, 0);
+      let camDist = 26;
+      let camHeight = 14;
+
+      if (active) {
+        const zDef = zoneDefs.find((d) => d.name === active);
+        if (zDef) {
+          targetPos.set(zDef.x, 2, zDef.z);
+          camDist = active === "DOCK" ? 18 : 12;
+          camHeight = 8;
+        }
+      }
+
       const t = frame * 0.0015;
-      camera.position.x = Math.cos(t) * 26;
-      camera.position.z = Math.sin(t) * 26;
-      camera.position.y = 14 + Math.sin(t * 2) * 1.5;
-      camera.lookAt(0, 2.5, 0);
+      const desiredX = targetPos.x + Math.cos(t) * camDist;
+      const desiredZ = targetPos.z + Math.sin(t) * camDist;
+      const desiredY = camHeight + Math.sin(t * 2) * 1.5;
+
+      camera.position.x += (desiredX - camera.position.x) * 0.05;
+      camera.position.y += (desiredY - camera.position.y) * 0.05;
+      camera.position.z += (desiredZ - camera.position.z) * 0.05;
+      camera.lookAt(targetPos);
 
       // particles flow
       const pos = pGeom.attributes.position.array as Float32Array;
@@ -155,7 +177,6 @@ export function WarehouseTwin3D({ replayProgress = 1, activeZone }: Props) {
       pGeom.attributes.position.needsUpdate = true;
 
       // active zone pulse
-      const active = stateRef.current.zone;
       zones.forEach((z) => {
         const mat = z.mesh.material as THREE.MeshStandardMaterial;
         const target =

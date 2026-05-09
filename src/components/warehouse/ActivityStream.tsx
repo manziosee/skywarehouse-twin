@@ -15,7 +15,7 @@ const MSGS = [
   "Vision-AI flagged damaged carton",
 ];
 
-export function ActivityStream() {
+export function ActivityStream({ activeZone }: { activeZone?: string | null }) {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
@@ -35,28 +35,40 @@ export function ActivityStream() {
     return () => clearInterval(i);
   }, []);
 
+  const filteredEvents = activeZone
+    ? events.filter((e) => e.zone.startsWith(activeZone))
+    : events;
+
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <AnimatePresence initial={false}>
-        {events.map((e) => (
-          <motion.div
-            key={e.id}
-            layout
-            initial={{ opacity: 0, x: -20, height: 0 }}
-            animate={{ opacity: 1, x: 0, height: "auto" }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg border border-border/60 bg-white/60"
-          >
-            <span className="ticker-dot shrink-0" />
-            <span className="font-mono text-[10px] text-muted-foreground tabular-nums">{e.ts}</span>
-            <span className="text-[10px] font-semibold tracking-wider px-1.5 py-0.5 rounded bg-primary/10 text-primary">
-              {e.type}
-            </span>
-            <span className="text-xs text-foreground/80 truncate flex-1">{e.msg}</span>
-            <span className="text-[10px] font-mono text-muted-foreground">{e.zone}</span>
-          </motion.div>
-        ))}
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((e) => (
+            <motion.div
+              key={e.id}
+              layout
+              initial={{ opacity: 0, x: -20, height: 0 }}
+              animate={{ opacity: 1, x: 0, height: "auto" }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="flex items-center gap-4 px-4 py-3 rounded-xl border border-primary/40 bg-black shadow-lg shadow-primary/5"
+            >
+              <div className="w-1 h-4 bg-primary rounded-full animate-pulse" />
+              <span className="font-mono text-[11px] text-white font-black tabular-nums">{e.ts}</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded-md bg-primary text-white shadow-sm shadow-primary/20">
+                {e.type}
+              </span>
+              <span className="text-xs text-white font-bold truncate flex-1 tracking-tight">{e.msg}</span>
+              <span className="text-[11px] font-mono font-black text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">
+                {e.zone}
+              </span>
+            </motion.div>
+          ))
+        ) : (
+          <div className="py-8 text-center text-[11px] font-mono text-white font-black uppercase tracking-widest bg-white/5 rounded-xl border border-white/10 border-dashed italic">
+            Waiting for zone telemetry stream…
+          </div>
+        )}
       </AnimatePresence>
     </div>
   );

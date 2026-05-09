@@ -24,7 +24,7 @@ export function Heatmap() {
     const cw = w / cols;
     const ch = h / rows;
     svg.attr("viewBox", `0 0 ${w} ${h}`).selectAll("*").remove();
-    const color = d3.scaleSequential(d3.interpolateRgbBasis(["#f0f9ff", "#7dd3fc", "#0284c7"])).domain([0, 1.3]);
+    const color = d3.scaleSequential(d3.interpolateRgbBasis(["#000000", "#0c4a6e", "#0ea5e9"])).domain([0, 1.3]);
 
     const g = svg.append("g");
     g.selectAll("rect")

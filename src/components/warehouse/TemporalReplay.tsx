@@ -22,22 +22,22 @@ export function TemporalReplay({ value, onChange }: Props) {
   const hoursAgo = ((1 - value) * 4).toFixed(1);
 
   return (
-    <div className="flex items-center gap-3 w-full">
+    <div className="flex items-center gap-4 w-full bg-black p-4 rounded-2xl border-2 border-primary/30 shadow-xl shadow-primary/5">
       <button
         onClick={() => onChange(0)}
-        className="p-1.5 rounded-lg hover:bg-primary/10 transition"
+        className="p-2.5 rounded-xl border-2 border-white/20 hover:border-white transition-all text-white"
         aria-label="Restart"
       >
-        <Rewind className="w-3.5 h-3.5" />
+        <Rewind className="w-4 h-4" />
       </button>
       <button
         onClick={() => setPlaying((p) => !p)}
-        className="p-2 rounded-lg bg-primary text-white hover:opacity-90 glow"
+        className="p-3 rounded-xl bg-primary text-white hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(14,165,233,0.4)] border-2 border-primary"
         aria-label="Play"
       >
-        {playing ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+        {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
       </button>
-      <div className="flex-1 relative">
+      <div className="flex-1 relative mx-2">
         <input
           type="range"
           min={0}
@@ -45,19 +45,19 @@ export function TemporalReplay({ value, onChange }: Props) {
           step={0.005}
           value={value}
           onChange={(e) => onChange(parseFloat(e.target.value))}
-          className="w-full accent-primary"
+          className="w-full accent-primary h-2 rounded-full cursor-pointer"
         />
-        <div className="flex justify-between text-[9px] font-mono text-muted-foreground mt-0.5">
-          <span>−4h</span>
-          <span>−2h</span>
-          <span>NOW</span>
+        <div className="flex justify-between text-[11px] font-mono text-white font-black mt-2 tracking-widest opacity-60">
+          <span>−4H</span>
+          <span>−2H</span>
+          <span className="text-primary opacity-100">LIVE</span>
         </div>
       </div>
-      <div className="text-right">
-        <div className="text-xs font-mono font-semibold tabular-nums text-primary">
-          {value >= 0.99 ? "LIVE" : `−${hoursAgo}h`}
+      <div className="text-right pl-4 border-l border-primary/20">
+        <div className="text-lg font-mono font-black tabular-nums text-primary shadow-glow">
+          {value >= 0.99 ? "LIVE" : `−${hoursAgo}H`}
         </div>
-        <div className="text-[9px] text-muted-foreground uppercase tracking-wider">temporal</div>
+        <div className="text-[10px] text-white/40 font-black uppercase tracking-[0.3em]">Temporal</div>
       </div>
     </div>
   );
