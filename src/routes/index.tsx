@@ -215,7 +215,7 @@ function Index() {
 
       <div className="flex-1 flex">
         {/* SIDEBAR TABS */}
-        <aside className="w-20 shrink-0 flex flex-col items-center py-6 gap-2 border-r border-white/10 bg-black z-30">
+        <aside className="w-14 shrink-0 flex flex-col items-center py-3 gap-1.5 border-r border-white/10 bg-black z-30">
           {tabs.map((item) => {
             const active = tab === item.label;
             return (
@@ -223,27 +223,26 @@ function Index() {
                 key={item.label}
                 onClick={() => setTab(item.label)}
                 title={item.label}
-                className={`w-12 h-12 rounded-xl flex flex-col items-center justify-center gap-1 transition-all group relative ${
+                className={`w-10 h-10 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-all group relative ${
                   active
                     ? "bg-primary text-primary-foreground glow shadow-primary/20"
                     : "text-white/60 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <item.icon className={`w-5 h-5 ${active ? "scale-110" : "group-hover:scale-110 transition-transform"}`} />
-                <span className="text-[7px] uppercase tracking-tighter font-bold">{item.label.slice(0, 4)}</span>
+                <item.icon className={`w-3.5 h-3.5 ${active ? "scale-110" : "group-hover:scale-110 transition-transform"}`} />
+                <span className="text-[6px] uppercase tracking-tight font-bold">{item.label.slice(0, 4)}</span>
                 {active && (
                   <motion.div
                     layoutId="active-tab"
-                    className="absolute -left-1 w-1 h-6 bg-primary rounded-r-full"
+                    className="absolute -left-0.5 w-0.5 h-4 bg-primary rounded-r-full"
                   />
                 )}
               </button>
             );
           })}
-          
-          <div className="mt-auto pt-6 border-t border-white/10 w-10 flex flex-col gap-4 items-center opacity-60">
-            <MapPin className="w-4 h-4 cursor-pointer hover:text-white transition" />
-            <Activity className="w-4 h-4 cursor-pointer hover:text-white transition" />
+          <div className="mt-auto pt-3 border-t border-white/10 w-8 flex flex-col gap-2.5 items-center opacity-60">
+            <MapPin className="w-3 h-3 cursor-pointer hover:text-white transition" />
+            <Activity className="w-3 h-3 cursor-pointer hover:text-white transition" />
           </div>
         </aside>
 
