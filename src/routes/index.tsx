@@ -113,30 +113,28 @@ function Index() {
   return (
     <div className="min-h-screen flex flex-col bg-black text-slate-50 font-sans selection:bg-primary selection:text-white">
       {/* PHASE 1: GLOBAL EVENT TICKER */}
-      <div className="h-8 bg-primary/10 border-b border-primary/30 flex items-center overflow-hidden z-50">
-        <div className="flex whitespace-nowrap animate-marquee py-1">
+      <div className="h-6 bg-primary/10 border-b border-primary/30 flex items-center overflow-hidden z-50">
+        <div className="flex whitespace-nowrap animate-marquee py-0.5">
           {[
             "🛰️ SHIP T-1024 ARRIVING AT DOCK BAY 12 IN 14M",
             "⚠️ ZONE E BOTTLE-NECK DETECTED — AGV-204 REROUTED",
             "⚡ SOLAR ARRAY OUTPUT: 104% CAPACITY",
             "🛡️ SITE-WIDE COMPLIANCE: 99.8% (OPTIMAL)",
-            "📦 INBOUND SURGE DETECTED FROM PORT ROTTERDAM",
-            "🛰️ AGV FLEET SYNC COMPLETE — 142 NODES ACTIVE",
-          ].map((text, i) => (
-            <span key={i} className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mx-12">
-              {text}
-            </span>
-          ))}
-          {/* Duplicate for seamless loop */}
-          {[
+            "📦 INBOUND SURGE FROM PORT ROTTERDAM",
+            "🛰️ AGV FLEET SYNC · 142 NODES",
+            "🔋 BATTERY MESH 87% AVG · 4 CHARGING",
+            "🌡️ COLD CHAIN ZONE D · -18°C STABLE",
+          ].concat([
             "🛰️ SHIP T-1024 ARRIVING AT DOCK BAY 12 IN 14M",
             "⚠️ ZONE E BOTTLE-NECK DETECTED — AGV-204 REROUTED",
             "⚡ SOLAR ARRAY OUTPUT: 104% CAPACITY",
             "🛡️ SITE-WIDE COMPLIANCE: 99.8% (OPTIMAL)",
-            "📦 INBOUND SURGE DETECTED FROM PORT ROTTERDAM",
-            "🛰️ AGV FLEET SYNC COMPLETE — 142 NODES ACTIVE",
-          ].map((text, i) => (
-            <span key={i + 10} className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mx-12">
+            "📦 INBOUND SURGE FROM PORT ROTTERDAM",
+            "🛰️ AGV FLEET SYNC · 142 NODES",
+            "🔋 BATTERY MESH 87% AVG · 4 CHARGING",
+            "🌡️ COLD CHAIN ZONE D · -18°C STABLE",
+          ]).map((text, i) => (
+            <span key={i} className="text-[8px] font-black uppercase tracking-[0.35em] text-primary mx-8">
               {text}
             </span>
           ))}
