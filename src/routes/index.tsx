@@ -144,58 +144,73 @@ function Index() {
       </div>
 
       {/* HEADER */}
-      <header className="h-16 shrink-0 flex items-center px-8 bg-black border-b border-primary/30 z-40 shadow-2xl">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/20 grid place-items-center">
-            <img src={logo} alt="AERION" width={28} height={28} className="brightness-0 invert" />
+      <header className="h-12 shrink-0 flex items-center px-5 bg-black border-b border-primary/30 z-40 shadow-2xl">
+        <div className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-lg bg-primary shadow shadow-primary/20 grid place-items-center">
+            <img src={logo} alt="AERION" width={18} height={18} className="brightness-0 invert" />
           </div>
-          <div className="text-xl font-black tracking-tighter">
+          <div className="text-[13px] font-black tracking-tighter leading-none">
             <span className="text-primary uppercase italic">AERION</span>
-            <span className="text-white font-normal ml-3 opacity-100 uppercase tracking-widest text-xs">/ SITE STK‑07 COMMAND</span>
+            <span className="text-white font-normal ml-2 uppercase tracking-widest text-[8px]">/ STK‑07</span>
           </div>
         </div>
 
-        <div className="hidden xl:flex items-center gap-12 ml-20">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
-            <span className="text-[11px] font-mono text-white font-black uppercase tracking-widest">
-              {m.agvs} NODES ACTIVE · {m.skus} SKUS · {m.label}
+        <div className="hidden xl:flex items-center gap-6 ml-10">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
+            <span className="text-[9px] font-mono text-white font-black uppercase tracking-widest">
+              {m.agvs} NODES · {m.skus} SKUS · {m.label}
             </span>
           </div>
 
-          <div className="h-6 w-px bg-primary/20" />
+          <div className="h-4 w-px bg-primary/20" />
 
-          {/* PHASE 2: ENVIRONMENTAL HUD */}
-          <div className="flex items-center gap-8">
-            <div className="flex items-center gap-3">
-              <CloudRain className="w-5 h-5 text-primary" />
-              <div className="flex flex-col">
-                <span className="text-[10px] font-black text-white uppercase tracking-widest">Weather</span>
-                <span className="text-[11px] font-mono text-primary font-black uppercase">Rain · 8°C</span>
+          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-1.5">
+              <CloudRain className="w-3.5 h-3.5 text-primary" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[8px] font-black text-white uppercase tracking-widest">Weather</span>
+                <span className="text-[9px] font-mono text-primary font-black uppercase">Rain · 8°C</span>
               </div>
             </div>
-            
-            <div className="flex items-center gap-3 bg-primary/5 px-4 py-2 rounded-xl border border-primary/20 shadow-lg">
-              <div className="flex flex-col">
-                <span className="text-[9px] font-black text-white/60 uppercase tracking-[0.2em]">Efficiency Coefficient</span>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-lg font-black text-primary font-mono shadow-glow">-8.2%</span>
-                  <span className="text-[9px] text-white/40 font-bold uppercase tracking-widest">Delay Impact</span>
-                </div>
+            <div className="flex items-center gap-1.5">
+              <Wind className="w-3.5 h-3.5 text-primary" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[8px] font-black text-white uppercase tracking-widest">Wind</span>
+                <span className="text-[9px] font-mono text-primary font-black uppercase">12 km/h NE</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-[8px] font-black text-white uppercase tracking-widest">Power</span>
+                <span className="text-[9px] font-mono text-primary font-black uppercase">2.4 MW · 104%</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 bg-primary/5 px-2.5 py-1 rounded-md border border-primary/20">
+              <div className="flex flex-col leading-tight">
+                <span className="text-[8px] font-black text-white/60 uppercase tracking-[0.2em]">Efficiency</span>
+                <span className="text-[11px] font-black text-primary font-mono">-8.2%</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-8">
-          <div className="flex flex-col items-end">
-            <div className="text-[12px] font-mono text-white font-black tracking-[0.2em]">
+        <div className="ml-auto flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3 px-2.5 py-1 rounded-md bg-primary/5 border border-primary/20">
+            <span className="text-[8px] font-black text-white/60 uppercase tracking-widest">Orders</span>
+            <span className="text-[10px] font-mono font-black text-primary">1 284 ▲</span>
+            <span className="text-[8px] font-black text-white/60 uppercase tracking-widest">SLA</span>
+            <span className="text-[10px] font-mono font-black text-primary">98.6%</span>
+          </div>
+          <div className="flex flex-col items-end leading-tight">
+            <div className="text-[10px] font-mono text-white font-black tracking-[0.2em]">
               {new Date().toISOString().split('T')[1].split('.')[0]} UTC
             </div>
-            <div className="text-[9px] text-primary font-black uppercase tracking-widest mt-0.5">Live Telemetry Link</div>
+            <div className="text-[8px] text-primary font-black uppercase tracking-widest">Live Link</div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 border-2 border-primary/40 grid place-items-center cursor-pointer hover:bg-primary hover:text-white transition-all shadow-xl shadow-primary/10 group">
-             <Radio className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
+          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/40 grid place-items-center cursor-pointer hover:bg-primary hover:text-white transition-all group">
+             <Radio className="w-4 h-4 text-primary group-hover:text-white transition-colors" />
           </div>
         </div>
       </header>
