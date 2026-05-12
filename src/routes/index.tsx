@@ -253,65 +253,78 @@ function Index() {
             <WarehouseTwin3D replayProgress={replay} activeZone={zone} />
             
             {/* HUD OVERLAYS */}
-            <div className="absolute inset-0 pointer-events-none p-8 flex flex-col">
-              <div className="flex justify-between items-start">
-                <div className="bg-black p-6 rounded-[2rem] border-2 border-primary/40 shadow-2xl">
-                  <div className="text-[11px] font-mono uppercase tracking-[0.4em] text-primary font-black">
+            <div className="absolute inset-0 pointer-events-none p-5 flex flex-col">
+              <div className="flex justify-between items-start gap-4">
+                <div className="bg-black/80 backdrop-blur p-3.5 rounded-2xl border border-primary/40 shadow-2xl">
+                  <div className="text-[8px] font-mono uppercase tracking-[0.35em] text-primary font-black">
                     Spatial Intelligence · v1.0.4
                   </div>
-                  <h1 className="text-5xl font-black tracking-tighter text-white mt-2 uppercase italic">
+                  <h1 className="text-2xl font-black tracking-tighter text-white mt-1 uppercase italic leading-none">
                     Floor <span className="text-primary">Activity</span>
                   </h1>
-                  <div className="flex items-center gap-4 mt-4">
-                    <span className={`text-[11px] uppercase tracking-[0.3em] font-black px-3 py-1 rounded-lg border-2 ${STATUS_COLOR[m.status]}`}>
+                  <div className="flex items-center gap-2 mt-2.5">
+                    <span className={`text-[8px] uppercase tracking-[0.25em] font-black px-2 py-0.5 rounded-md border ${STATUS_COLOR[m.status]}`}>
                       {m.status}
                     </span>
-                    <span className="text-[12px] text-white font-mono tracking-tight font-black uppercase">{m.label}</span>
+                    <span className="text-[9px] text-white font-mono tracking-tight font-black uppercase">{m.label}</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-primary/20">
+                    <div>
+                      <div className="text-[7px] font-black uppercase tracking-widest text-white/50">Battery</div>
+                      <div className="text-[11px] font-mono font-black text-primary">87%</div>
+                    </div>
+                    <div>
+                      <div className="text-[7px] font-black uppercase tracking-widest text-white/50">Queue</div>
+                      <div className="text-[11px] font-mono font-black text-primary">42</div>
+                    </div>
+                    <div>
+                      <div className="text-[7px] font-black uppercase tracking-widest text-white/50">Pickrate</div>
+                      <div className="text-[11px] font-mono font-black text-primary">214/h</div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-4 pointer-events-auto">
+                <div className="flex flex-col gap-2 pointer-events-auto">
                   {stats.map((s) => (
                     <motion.div
                       key={s.label + s.value}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      className="bg-black rounded-[2rem] px-8 py-6 border-2 border-primary/40 min-w-[240px] shadow-2xl"
+                      className="bg-black/80 backdrop-blur rounded-2xl px-4 py-2.5 border border-primary/40 min-w-[150px] shadow-2xl"
                     >
-                      <div className="flex items-center justify-between gap-4 mb-4">
-                        <span className="text-[12px] uppercase tracking-[0.4em] text-white font-black">{s.label}</span>
-                        <s.icon className="w-6 h-6 text-primary" />
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <span className="text-[8px] uppercase tracking-[0.3em] text-white font-black">{s.label}</span>
+                        <s.icon className="w-3.5 h-3.5 text-primary" />
                       </div>
-                      <div className="font-mono text-4xl font-black tabular-nums text-white tracking-tighter">
+                      <div className="font-mono text-xl font-black tabular-nums text-white tracking-tighter leading-none">
                         {s.value}
-                        <span className="text-sm text-primary ml-2 font-black uppercase">{s.unit}</span>
+                        <span className="text-[9px] text-primary ml-1.5 font-black uppercase">{s.unit}</span>
                       </div>
                     </motion.div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-auto flex items-end justify-between">
-                {/* Zone Select */}
-                <div className="flex flex-wrap gap-3 pointer-events-auto max-w-lg">
+              <div className="mt-auto flex items-end justify-between gap-4">
+                <div className="flex flex-wrap gap-1.5 pointer-events-auto max-w-md">
                   <button
                     onClick={() => setZone(null)}
-                    className={`text-[11px] font-black font-mono px-6 py-3 rounded-2xl border-2 transition-all tracking-widest ${
+                    className={`text-[9px] font-black font-mono px-3 py-1.5 rounded-lg border transition-all tracking-widest ${
                       zone === null
-                        ? "bg-primary text-white border-primary shadow-2xl shadow-primary/40"
-                        : "bg-black border-white/20 text-white/60 hover:border-primary hover:text-white"
+                        ? "bg-primary text-white border-primary shadow-lg shadow-primary/40"
+                        : "bg-black/70 backdrop-blur border-white/20 text-white/70 hover:border-primary hover:text-white"
                     }`}
                   >
-                    ALL SECTORS
+                    ALL
                   </button>
                   {ZONES.map((z) => (
                     <button
                       key={z}
                       onClick={() => setZone(z)}
-                      className={`text-[11px] font-black font-mono px-6 py-3 rounded-2xl border-2 transition-all tracking-widest ${
+                      className={`text-[9px] font-black font-mono px-3 py-1.5 rounded-lg border transition-all tracking-widest ${
                         zone === z
-                          ? "bg-primary text-white border-primary shadow-2xl shadow-primary/40"
-                          : "bg-black border-white/20 text-white/60 hover:border-primary hover:text-white"
+                          ? "bg-primary text-white border-primary shadow-lg shadow-primary/40"
+                          : "bg-black/70 backdrop-blur border-white/20 text-white/70 hover:border-primary hover:text-white"
                     }`}
                     >
                       {z}
@@ -319,8 +332,21 @@ function Index() {
                   ))}
                 </div>
 
-                {/* Replay */}
-                <div className="w-[450px] pointer-events-auto bg-black rounded-[2rem] px-8 py-6 border-2 border-primary/30 shadow-2xl">
+                <div className="hidden lg:flex flex-col gap-1 pointer-events-auto bg-black/70 backdrop-blur rounded-xl px-3 py-2 border border-primary/30 max-w-[260px]">
+                  <div className="text-[7px] font-black text-primary uppercase tracking-[0.3em]">Live Alerts</div>
+                  {[
+                    { t: "AGV-204 rerouted", c: "primary" },
+                    { t: "Dock 12 ETA 14m", c: "white" },
+                    { t: "Pack-3 throughput +6%", c: "primary" },
+                  ].map((a, i) => (
+                    <div key={i} className="flex items-center gap-1.5">
+                      <span className={`w-1 h-1 rounded-full ${a.c === "primary" ? "bg-primary" : "bg-white/60"} animate-pulse`} />
+                      <span className="text-[8px] font-mono text-white/80 uppercase tracking-wider truncate">{a.t}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="w-[340px] pointer-events-auto bg-black/80 backdrop-blur rounded-2xl px-4 py-2.5 border border-primary/30 shadow-2xl">
                   <TemporalReplay value={replay} onChange={setReplay} />
                 </div>
               </div>
