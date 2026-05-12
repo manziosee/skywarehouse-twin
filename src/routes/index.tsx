@@ -452,7 +452,7 @@ function Index() {
                         {/* NEW: AI Copilot panel */}
                         <section className="col-span-12 lg:col-span-7 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl">
                           <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-primary mb-4 font-black">AERION Copilot</div>
-                          <AICopilot activeZone={zone} />
+                          <AICopilot />
                         </section>
 
                         {/* NEW: Energy + Dock pipeline */}
