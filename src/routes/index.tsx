@@ -354,14 +354,36 @@ function Index() {
           </div>
 
           {/* CONTEXTUAL ANALYSIS - BROUGHT DOWN */}
-          <div className="p-12 space-y-12 bg-black">
-            <div className="grid grid-cols-12 gap-12">
+          <div className="p-6 space-y-6 bg-black">
+            {/* NEW: Quick KPI strip */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">
+              {[
+                { l: "Orders/h", v: "1 284", d: "+4.2%" },
+                { l: "On-time", v: "98.6%", d: "+0.3" },
+                { l: "Pick err", v: "0.21%", d: "-0.04" },
+                { l: "Carbon", v: "12.4t", d: "-6%" },
+                { l: "AGV up", v: "99.1%", d: "+0.2" },
+                { l: "Cold °C", v: "-18.0", d: "stable" },
+                { l: "Dock util", v: "82%", d: "+5" },
+                { l: "AI conf", v: "0.94", d: "▲" },
+              ].map((k) => (
+                <div key={k.l} className="bg-black border border-primary/20 rounded-lg px-2.5 py-2 hover:border-primary/60 transition">
+                  <div className="text-[7px] font-black uppercase tracking-[0.25em] text-white/60">{k.l}</div>
+                  <div className="flex items-baseline gap-1.5 mt-0.5">
+                    <span className="font-mono text-sm font-black text-white">{k.v}</span>
+                    <span className="text-[8px] font-black text-primary">{k.d}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-12 gap-6">
               <div className="col-span-12">
-                <div className="mb-8 border-b-2 border-primary/20 pb-6">
-                  <div className="text-[12px] font-mono uppercase tracking-[0.5em] text-primary mb-3 font-black">
+                <div className="mb-4 border-b border-primary/20 pb-3">
+                  <div className="text-[8px] font-mono uppercase tracking-[0.4em] text-primary mb-1 font-black">
                     Operational Intelligence Deck
                   </div>
-                  <h2 className="text-4xl font-black tracking-tighter text-white uppercase italic">{tab} <span className="text-primary font-normal">/</span> Analysis</h2>
+                  <h2 className="text-xl font-black tracking-tighter text-white uppercase italic">{tab} <span className="text-primary font-normal">/</span> Analysis</h2>
                 </div>
 
                 <AnimatePresence mode="wait">
@@ -373,42 +395,107 @@ function Index() {
                     transition={{ duration: 0.3 }}
                   >
                     {tab === "Operations" && (
-                      <div className="grid grid-cols-12 gap-8">
-                        <section className="col-span-4 bg-black rounded-[2.5rem] p-10 border-2 border-primary/30 shadow-2xl">
-                          <div className="text-[12px] font-mono uppercase tracking-[0.4em] text-primary mb-8 font-black">Real-Time Activity Stream</div>
+                      <div className="grid grid-cols-12 gap-4">
+                        <section className="col-span-12 lg:col-span-4 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl">
+                          <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-primary mb-4 font-black">Real-Time Activity Stream</div>
                           <ActivityStream activeZone={zone} />
                         </section>
-                        
-                        <section className="col-span-4 bg-black rounded-[2.5rem] p-10 border-2 border-primary/30 relative overflow-hidden shadow-2xl">
+
+                        <section className="col-span-12 lg:col-span-4 bg-black rounded-2xl p-5 border border-primary/30 relative overflow-hidden shadow-2xl">
                           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] -z-10" />
-                          <div className="text-[12px] font-mono uppercase tracking-[0.4em] text-primary mb-8 font-black">Fleet Simulation Control</div>
-                          <div className="space-y-8">
+                          <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-primary mb-4 font-black">Fleet Simulation Control</div>
+                          <div className="space-y-4">
                             {[
                               { label: "Active AGV Deployment", value: m.agvs, max: 200 },
                               { label: "Station Load Distribution", value: zone === "E" ? 12 : 18, max: 32 },
                             ].map((s) => (
                               <div key={s.label}>
-                                <div className="flex justify-between text-[11px] mb-3 uppercase font-black tracking-widest">
+                                <div className="flex justify-between text-[8px] mb-1.5 uppercase font-black tracking-widest">
                                   <span className="text-white/60">{s.label}</span>
-                                  <span className="font-mono font-black text-primary text-sm">{s.value}</span>
+                                  <span className="font-mono font-black text-primary text-[10px]">{s.value}</span>
                                 </div>
-                                <div className="h-3 rounded-full bg-white/10 overflow-hidden shadow-inner">
+                                <div className="h-1.5 rounded-full bg-white/10 overflow-hidden shadow-inner">
                                   <motion.div
                                     initial={{ width: 0 }}
                                     animate={{ width: `${(s.value / s.max) * 100}%` }}
-                                    className="h-full bg-primary shadow-[0_0_15px_rgba(14,165,233,0.4)]"
+                                    className="h-full bg-primary shadow-[0_0_10px_rgba(14,165,233,0.4)]"
                                   />
                                 </div>
                               </div>
                             ))}
                           </div>
-                          <button onClick={runForecast} disabled={forecasting} className="mt-12 w-full py-5 rounded-[1.5rem] bg-white text-black text-xs font-black shadow-2xl shadow-white/20 hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-[0.4em] border-2 border-white">
+                          <button onClick={runForecast} disabled={forecasting} className="mt-5 w-full py-2.5 rounded-xl bg-white text-black text-[9px] font-black hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-[0.35em] border border-white">
                             {forecasting ? "Neural Processing..." : "Execute Strategic Forecast"}
                           </button>
+                          {forecast && (
+                            <div className="mt-3 grid grid-cols-3 gap-2">
+                              <div className="bg-primary/10 border border-primary/30 rounded-lg px-2 py-1.5">
+                                <div className="text-[7px] font-black uppercase tracking-widest text-white/60">Throughput</div>
+                                <div className="text-[11px] font-mono font-black text-primary">+{forecast.throughput.toFixed(1)}%</div>
+                              </div>
+                              <div className="bg-primary/10 border border-primary/30 rounded-lg px-2 py-1.5">
+                                <div className="text-[7px] font-black uppercase tracking-widest text-white/60">Cost</div>
+                                <div className="text-[11px] font-mono font-black text-primary">{forecast.cost.toFixed(1)}%</div>
+                              </div>
+                              <div className="bg-primary/10 border border-primary/30 rounded-lg px-2 py-1.5">
+                                <div className="text-[7px] font-black uppercase tracking-widest text-white/60">CO₂</div>
+                                <div className="text-[11px] font-mono font-black text-primary">{forecast.co2.toFixed(1)}%</div>
+                              </div>
+                            </div>
+                          )}
                         </section>
 
-                        <section className="col-span-4 bg-black rounded-[2.5rem] p-10 border-2 border-primary/30 shadow-2xl">
+                        <section className="col-span-12 lg:col-span-4 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl">
                           <ConnectivityMesh />
+                        </section>
+
+                        {/* NEW: AI Copilot panel */}
+                        <section className="col-span-12 lg:col-span-7 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl">
+                          <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-primary mb-4 font-black">AERION Copilot</div>
+                          <AICopilot activeZone={zone} />
+                        </section>
+
+                        {/* NEW: Energy + Dock pipeline */}
+                        <section className="col-span-12 lg:col-span-5 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-primary font-black">Energy & Dock Pipeline</div>
+                            <Sparkles className="w-3.5 h-3.5 text-primary" />
+                          </div>
+                          <div className="grid grid-cols-2 gap-3">
+                            {[
+                              { l: "Solar", v: 78 },
+                              { l: "Grid", v: 42 },
+                              { l: "Battery", v: 87 },
+                              { l: "HVAC load", v: 56 },
+                            ].map((s) => (
+                              <div key={s.l}>
+                                <div className="flex justify-between text-[8px] mb-1 uppercase font-black tracking-widest">
+                                  <span className="text-white/60">{s.l}</span>
+                                  <span className="font-mono text-primary">{s.v}%</span>
+                                </div>
+                                <div className="h-1 rounded-full bg-white/10 overflow-hidden">
+                                  <motion.div initial={{ width: 0 }} animate={{ width: `${s.v}%` }} className="h-full bg-primary" />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="mt-4 pt-3 border-t border-primary/20">
+                            <div className="text-[8px] font-black uppercase tracking-[0.3em] text-white/60 mb-2">Inbound Dock Queue</div>
+                            <div className="space-y-1.5">
+                              {[
+                                { id: "T-1024", t: "Truck", eta: "14m", b: "12" },
+                                { id: "S-882", t: "Ship", eta: "1h 02", b: "—" },
+                                { id: "A-441", t: "Air", eta: "2h 18", b: "07" },
+                              ].map((d) => (
+                                <div key={d.id} className="flex items-center justify-between text-[9px] font-mono">
+                                  <span className="text-white font-black">{d.id}</span>
+                                  <span className="text-white/50 uppercase tracking-widest text-[8px]">{d.t}</span>
+                                  <span className="text-primary font-black">ETA {d.eta}</span>
+                                  <span className="text-white/60">Bay {d.b}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
                         </section>
                       </div>
                     )}
@@ -423,11 +510,11 @@ function Index() {
 
             </div>
 
-            <div className="grid grid-cols-12 gap-8 pt-12 border-t border-primary/20">
-              <section className="col-span-5 bg-black rounded-[2rem] p-8 border border-primary/30 shadow-2xl relative overflow-hidden flex flex-col h-[350px]">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="text-[11px] font-mono uppercase tracking-[0.4em] text-white font-black">Throughput Stream</div>
-                  <div className="flex gap-6 text-[10px] font-mono uppercase font-bold">
+            <div className="grid grid-cols-12 gap-4 pt-6 border-t border-primary/20">
+              <section className="col-span-12 lg:col-span-5 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl relative overflow-hidden flex flex-col h-[280px]">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-white font-black">Throughput Stream</div>
+                  <div className="flex gap-3 text-[8px] font-mono uppercase font-bold">
                     <span className="text-primary tracking-widest">● Actual</span>
                     <span className="text-white tracking-widest opacity-60">○ Predicted</span>
                   </div>
@@ -437,11 +524,11 @@ function Index() {
                 </div>
               </section>
 
-              <section className="col-span-4 bg-black rounded-[2rem] p-8 border border-primary/30 shadow-2xl flex flex-col h-[350px]">
-                 <div className="flex items-center justify-between mb-6">
-                  <div className="text-[11px] font-mono uppercase tracking-[0.4em] text-white font-black">Bottleneck Heatmap</div>
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/40 grid place-items-center">
-                    <MapPin className="w-5 h-5 text-primary" />
+              <section className="col-span-12 lg:col-span-4 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl flex flex-col h-[280px]">
+                 <div className="flex items-center justify-between mb-3">
+                  <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-white font-black">Bottleneck Heatmap</div>
+                  <div className="w-7 h-7 rounded-lg bg-primary/10 border border-primary/40 grid place-items-center">
+                    <MapPin className="w-3.5 h-3.5 text-primary" />
                   </div>
                 </div>
                 <div className="flex-1 min-h-0">
@@ -449,8 +536,8 @@ function Index() {
                 </div>
               </section>
 
-              <section className="col-span-3 bg-black rounded-[2rem] p-8 border border-primary/30 shadow-2xl flex flex-col h-[350px]">
-                <div className="text-[11px] font-mono uppercase tracking-[0.4em] text-white font-black mb-6">Service Mesh</div>
+              <section className="col-span-12 lg:col-span-3 bg-black rounded-2xl p-5 border border-primary/30 shadow-2xl flex flex-col h-[280px]">
+                <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-white font-black mb-3">Service Mesh</div>
                 <div className="flex-1 min-h-0">
                   <SystemMap />
                 </div>
